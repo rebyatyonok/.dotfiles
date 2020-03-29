@@ -1,21 +1,21 @@
-function notifyAboutWifiName()
-  WifiName = hs.wifi.currentNetwork()
+local function notifyAboutWifiName()
+  local wifiName = hs.wifi.currentNetwork()
 
-  if WifiName == nil or WifiName == "TedMosby" then
+  if wifiName == nil or wifiName == "TedMosby" then
     return
   end
 
   hs.notify.new({ 
     title="Hammerspoon",
-    informativeText="Connected to " .. WifiName
+    informativeText="Connected to " .. wifiName
   }):send()
 end
 
 notifyAboutWifiName()
 
-Watcher = hs.wifi.watcher.new(function (_w, _e, _i)
+local watcher = hs.wifi.watcher.new(function (_w, _e, _i)
   notifyAboutWifiName()
 end)
 
-Watcher:start()
+watcher:start()
 
