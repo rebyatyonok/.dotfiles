@@ -3,7 +3,6 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "ivan petrakov"
@@ -24,7 +23,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-material)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -52,9 +51,45 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq
- projectile-project-search-path '("~/Documents/")
-)
 
-(use-package! lsp-mode
-  :config (setq lsp-rust-server 'rust-analyzer))
+(setq
+  rustic-lsp-server 'rust-analyzer
+  projectile-project-search-path '("~/code/" "~/code/leetcode/" "~/.hammerspoon/")
+  doom-themes-treemacs-theme "Default")
+
+(use-package web-mode
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  (web-mode-enable-current-column-highlight t)
+  (web-mode-enable-current-element-highlight t))
+
+(setq web-mode-ac-sources-alist
+  '(("html" . (ac-source-emmet-html-aliases ac-source-emmet-html-snippets))
+    ("css" . (ac-source-css-property ac-source-emmet-css-snippets))))
+
+(use-package treemacs
+  :config (setq treemacs-no-png-images t))
+
+(add-hook 'web-mode-hook (
+  lambda () (setq js2-basic-offset 2
+                  default-tab-width 2)))
+
+(use-package flycheck
+  :config
+  (setq flycheck-check-syntax-automatically '(save mode-enable))
+  (flycheck-add-mode 'javascript-eslint 'web-mode))
+
+(use-package lsp-mode
+  :config
+  (setq company-idle-delay 0.1
+        lsp-rust-server 'rust-analyzer
+        lsp-rust-analyzer-display-parameter-hints 't
+        lsp-rust-clippy-preference "on"
+        lsp-rust-analyzer-proc-macro-enable 't))
+
+(defun rust-checker-setup ()
+    (flycheck-add-next-checker 'lsp-ui 'rustic-clippy))
+
+(add-hook 'rustic-mode-hook #'rust-checker-setup)
