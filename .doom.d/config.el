@@ -53,9 +53,13 @@
 
 
 (setq
-  rustic-lsp-server 'rust-analyzer
+  company-prescient-mode 'nil
   projectile-project-search-path '("~/code/" "~/code/leetcode/" "~/.hammerspoon/")
   doom-themes-treemacs-theme "Default")
+
+(setq web-mode-ac-sources-alist
+  '(("html" . (ac-source-emmet-html-aliases ac-source-emmet-html-snippets))
+    ("css" . (ac-source-css-property ac-source-emmet-css-snippets))))
 
 (use-package web-mode
   :custom
@@ -65,31 +69,29 @@
   (web-mode-enable-current-column-highlight t)
   (web-mode-enable-current-element-highlight t))
 
-(setq web-mode-ac-sources-alist
-  '(("html" . (ac-source-emmet-html-aliases ac-source-emmet-html-snippets))
-    ("css" . (ac-source-css-property ac-source-emmet-css-snippets))))
-
 (use-package treemacs
   :config (setq treemacs-no-png-images t))
 
-(add-hook 'web-mode-hook (
-  lambda () (setq js2-basic-offset 2
-                  default-tab-width 2)))
+(add-hook 'web-mode-hook
+  (lambda () (setq js2-basic-offset 2
+        default-tab-width 2)))
 
 (use-package flycheck
   :config
-  (setq flycheck-check-syntax-automatically '(save mode-enable))
+  (setq flycheck-check-syntax-automatically '(save mode-enable)
+        flycheck-rust-clippy-executable "~/.cargo/bin/clippy-driver")
   (flycheck-add-mode 'javascript-eslint 'web-mode))
 
 (use-package lsp-mode
   :config
   (setq company-idle-delay 0.1
-        lsp-rust-server 'rust-analyzer
         lsp-rust-analyzer-display-parameter-hints 't
         lsp-rust-clippy-preference "on"
         lsp-rust-analyzer-proc-macro-enable 't))
 
-(defun rust-checker-setup ()
-    (flycheck-add-next-checker 'lsp-ui 'rustic-clippy))
+(add-hook 'rust-mode-hook
+          (lambda () (push 'rustic-clippy 'flycheck-checkers)
+            (flycheck-select-checker 'rustic-clippy 'lsp)))
 
-(add-hook 'rustic-mode-hook #'rust-checker-setup)
+;; (after! rustic
+;;   (setq rustic-lsp-server 'rust-analyzer))
