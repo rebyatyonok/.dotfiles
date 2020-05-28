@@ -72,9 +72,10 @@
 (use-package treemacs
   :config (setq treemacs-no-png-images t))
 
-(add-hook 'web-mode-hook
-  (lambda () (setq js2-basic-offset 2
-        default-tab-width 2)))
+(use-package js2-mode
+  :config
+  (setq js2-basic-offset 2
+        default-tab-width 2))
 
 (use-package flycheck
   :config
@@ -93,5 +94,9 @@
           (lambda () (push 'rustic-clippy 'flycheck-checkers)
             (flycheck-select-checker 'rustic-clippy 'lsp)))
 
-;; (after! rustic
-;;   (setq rustic-lsp-server 'rust-analyzer))
+(use-package avy
+  :config
+  (setq avy-timeout-seconds 0.3
+        avy-all-windows t
+        avy-background nil
+        avy-single-candidate-jump t))
