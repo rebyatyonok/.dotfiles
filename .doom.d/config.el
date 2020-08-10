@@ -53,29 +53,51 @@
 
 
 (setq
+  +ivy-project-serach-engine '(rg)
   company-prescient-mode 'nil
-  projectile-project-search-path '("~/code/" "~/code/leetcode/" "~/.hammerspoon/")
+  projectile-project-search-path '("~/code/" "~/code/leetcode/" "~/.hammerspoon/" "~/code/haskell/")
   doom-themes-treemacs-theme "Default")
 
 (setq web-mode-ac-sources-alist
   '(("html" . (ac-source-emmet-html-aliases ac-source-emmet-html-snippets))
     ("css" . (ac-source-css-property ac-source-emmet-css-snippets))))
 
+(use-package emmet-mode
+  :custom
+  (emmet-indentation 2))
+
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "TAB") 'company-complete-selection))
+
 (use-package web-mode
   :custom
+  (web-mode-enable-auto-expanding t)
+  (web-mode-enable-auto-closing t)
   (web-mode-markup-indent-offset 2)
   (web-mode-css-indent-offset 2)
   (web-mode-code-indent-offset 2)
   (web-mode-enable-current-column-highlight t)
   (web-mode-enable-current-element-highlight t))
 
+(defun vue-no-indent-style-and-scripts()
+  (when (string= (file-name-extension buffer-file-name) "vue")
+    (setq web-mode-script-padding 0)
+    (setq web-mode-style-padding 0)))
+
+(add-hook! 'web-mode-hook 'vue-no-indent-style-and-scripts)
+
+(after! web-mode
+  (setq company-web-html-emmet-enable nil))
+
+(after! js2-mode
+  (setq js2-basic-offset 2))
+
+(use-package lsp-vetur
+  :custom
+  (lsp-vetur-emmet "always"))
+
 (use-package treemacs
   :config (setq treemacs-no-png-images t))
-
-(use-package js2-mode
-  :config
-  (setq js2-basic-offset 2
-        default-tab-width 2))
 
 (use-package flycheck
   :config
@@ -86,9 +108,13 @@
 (use-package lsp-mode
   :config
   (setq company-idle-delay 0.1
+        lsp-rust-server 'rls
         lsp-rust-analyzer-display-parameter-hints 't
         lsp-rust-clippy-preference "on"
         lsp-rust-analyzer-proc-macro-enable 't))
+
+(after! lsp-mode
+  (lsp-ui-mode t))
 
 (add-hook 'rust-mode-hook
           (lambda () (push 'rustic-clippy 'flycheck-checkers)
@@ -100,3 +126,15 @@
         avy-all-windows t
         avy-background nil
         avy-single-candidate-jump t))
+
+(evil-global-set-key
+ 'normal (kbd "H")
+ (lambda ()
+   (interactive)
+   (evil-first-non-blank)))
+
+(evil-global-set-key
+ 'normal (kbd "L")
+ (lambda ()
+   (interactive)
+   (evil-last-non-blank)))
