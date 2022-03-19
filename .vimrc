@@ -16,7 +16,6 @@ xnoremap E f<Space>
 
 " map jk to escape
 inoremap jk <Esc>l
-xnoremap jk <Esc>
 
 " map double d to delete line
 nnoremap dd Vx
@@ -26,4 +25,8 @@ nnoremap [ %
 nnoremap ] %
 xnoremap [ %
 xnoremap ] %
+
+"keep visual mode after indent
+vnoremap > >gv
+vnoremap < <gv
 
