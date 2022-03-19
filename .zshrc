@@ -101,6 +101,4 @@ ZSH_AUTOSUGGEST_USE_ASYNC=true
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source ./.profile
-
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
