@@ -14,6 +14,7 @@ function fish_right_prompt
     if not set -l git_dir (command git rev-parse --git-dir 2>/dev/null)
         set_color normal
         return
+        
     end
 
     # Get the current action ("merge", "rebase", etc.)

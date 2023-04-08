@@ -102,3 +102,5 @@ ZSH_AUTOSUGGEST_USE_ASYNC=true
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
