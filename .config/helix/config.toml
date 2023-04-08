@@ -1,0 +1,29 @@
+theme = "onedark"
+
+[editor]
+mouse = false
+line-number = "relative"
+idle-timeout = 250
+completion-replace = true
+true-color = true
+bufferline = "always"
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name"]
+right = ["diagnostics", "selections", "position", "file-type"]
+separator = "│"
+mode.normal = "N"
+mode.insert = "I"
+mode.select = "S"
+
+[editor.cursor-shape]
+insert = "bar"
+select = "underline"
+
+# Keys remapping
+[keys.insert]
+j = { k = "normal_mode" } # Maps `jk` to exit insert mode
+"C-h" = "move_char_left"
+"C-l" = "move_char_right"
+"C-j" = "move_line_down"
+"C-k" = "move_line_up"

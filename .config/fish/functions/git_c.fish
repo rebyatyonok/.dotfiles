@@ -7,7 +7,7 @@ function git_c
 
 		case "branches"
 			# delete local branches with no remote
-			git branch --merged | grep -v "master" >/tmp/merged-branches && vim /tmp/merged-branches && xargs git branch -d </tmp/merged-branches
+			git branch --list | grep -v "master" >/tmp/merged-branches && nvim /tmp/merged-branches && xargs git branch -D </tmp/merged-branches
 
 		case "*"
 			echo "Usage: git_c branches|tags"
