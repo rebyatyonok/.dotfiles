@@ -10,3 +10,7 @@ end
 # pnpm end
 
 source "$HOME/.cargo/env.fish"
+
+abbr --add g lazygit
+
+fnm env --use-on-cd --shell fish | source
