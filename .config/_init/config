@@ -1,0 +1,71 @@
+#################
+# CONFIGURATION #
+#################
+
+# Homebrew Casks: Applications installed via Homebrew Cask.
+# These are GUI applications available through Homebrew.
+CASKS=(
+    raycast
+    ghostty
+    zed
+    google-chrome
+    alt-tab
+    font-monaspace
+)
+
+# Homebrew Formulae: Command line tools installed via Homebrew.
+FORMULAE=(
+    lazygit
+    lsd
+    ripgrep
+    fnm
+    fish
+    fzf
+)
+
+# App Store Apps: List of App Store app IDs to install via `mas` (Mac App Store CLI).
+# Each number corresponds to an application's ID in the App Store.
+APPSTORE=(
+  409201541  # Pages
+  747648890  # Telegram
+  1440147259 # AdGurad
+)
+
+# SYSTEM SETTINGS: Commands to configure macOS system preferences and behaviors.
+SETTINGS=(
+  # Disable press and hold feature
+  defaults write -g ApplePressAndHoldEnabled -bool false
+  # Change keyrepeat speed
+  defaults write -g InitialKeyRepeat -float 10.0
+  # Shows hidden files in Finder
+  "defaults write com.apple.finder AppleShowAllFiles true"
+  # Shows the status bar in Finder
+  "defaults write com.apple.finder ShowStatusBar -bool true"
+  # Makes new Finder windows open in the home directory
+  "defaults write com.apple.finder NewWindowTarget PfHm"
+  # Sets the preferred view style in Finder to list view
+  "defaults write com.apple.Finder FXPreferredViewStyle Nlsv"
+  # Makes Finder sort folders before files
+  "defaults write com.apple.finder _FXSortFoldersFirst -bool true"
+  # Stops Photos from opening automatically when devices are plugged in
+  "defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true" # does this work?
+  # Dont create .DS_Store Files On Network Or USB Volumes
+  "defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true"
+  "defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true"
+  # Disable the warning when changing a file extension
+  "defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false"
+)
+
+# DOCK SETTINGS: Configuration for adding, removing, and replacing Dock items.
+DOCK_REPLACE=(
+  # Format: "replacement_app_path|app_name_to_replace"
+  # "/Applications/Google Chrome.app|Safari"
+)
+
+DOCK_ADD=(
+)
+DOCK_REMOVE=(
+)
+
+# HOMEBREW AUTOUPDATE: Configures the frequency of Homebrew package updates in milliseconds.
+HOMEBREW_UPDATE_FREQUENCY=86400 # 24 hours in milliseconds
