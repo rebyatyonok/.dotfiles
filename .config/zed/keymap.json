@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "cmd-alt-j": "editor::AddSelectionBelow",
+      "cmd-alt-k": "editor::AddSelectionAbove"
+    }
+  }
+]
