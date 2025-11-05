@@ -1,9 +1,39 @@
 [
   {
+    "bindings": {
+      "cmd-shift-l": [
+        "task::Spawn",
+        { "task_name": "LazyGit", "reveal_target": "center" }
+      ]
+    }
+  },
+  {
     "context": "Editor && vim_mode == normal",
     "bindings": {
       "cmd-alt-j": "editor::AddSelectionBelow",
       "cmd-alt-k": "editor::AddSelectionAbove"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual)",
+    "bindings": {
+      "s": "vim::PushSneak",
+      "shift-s": "vim::PushSneakBackward",
+      "shift-h": "vim::FirstNonWhitespace",
+      "shift-l": "vim::EndOfLine"
+    }
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "j k": "vim::NormalBefore"
+    }
+  },
+  {
+    "context": "vim_operator == a || vim_operator == i || vim_operator == cs",
+    "bindings": {
+      "q": "vim::MiniQuotes",
+      "b": "vim::MiniBrackets"
     }
   }
 ]

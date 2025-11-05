@@ -64,10 +64,17 @@
   },
   "theme": {
     "mode": "system",
-    "light": "One Light",
-    "dark": "macOS Classic Light"
+    "light": "macOS Classic Light",
+    "dark": "macOS Classic Dark"
   },
   "project_panel": {
     "button": false
+  },
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
   }
 }

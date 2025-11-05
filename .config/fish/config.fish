@@ -2,15 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-# pnpm
-set -gx PNPM_HOME "/Users/iwan/Library/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
-end
-# pnpm end
-
-source "$HOME/.cargo/env.fish"
+# fnm
+fnm env --use-on-cd --shell fish | source
 
 abbr --add g lazygit
-
-fnm env --use-on-cd --shell fish | source
